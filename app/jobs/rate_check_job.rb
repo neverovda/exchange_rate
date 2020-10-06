@@ -2,7 +2,7 @@ class RateCheckJob < ApplicationJob
   queue_as :default
 
   def perform
-    return unless Rate.forced?
+    return if Rate.forced?
 
     current_rate = Rate.real_last
     return unless current_rate

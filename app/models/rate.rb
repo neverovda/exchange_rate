@@ -1,23 +1,29 @@
 class Rate < ApplicationRecord
-  after_create
+  default_scope { order('created_at') }
 
-  # after_create :publish, :check_rate
-  after_create :check_rate
+  after_create :publish, :check_rate
 
   class << self
     def forced?
-      !forced_last.nil?
+      !actual_forced_last.nil?
     end
 
     def real_last
-      where({ forced: false }).order('created_at').last
+      where({ forced: false }).last
+    end
+
+    def forced_last
+      where({ forced: true }).last
+    end
+
+    def actual
+      actual_forced_last || real_last
     end
 
     private
 
-    def forced_last
-      where({ forced: true }).where('expiration_at > ?', Time.now)
-                             .order('created_at').last
+    def actual_forced_last
+      where({ forced: true }).where('expiration_at > ?', Time.now).last
     end
   end
 

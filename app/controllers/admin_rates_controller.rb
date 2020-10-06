@@ -21,7 +21,7 @@ class AdminRatesController < ApplicationController
   end
 
   def last_params
-    rate = Rate.order("created_at").last
+    rate = Rate.forced_last
     { price: rate.price, expiration_at: rate.expiration_at }
   end
 end

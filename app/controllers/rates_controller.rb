@@ -1,5 +1,5 @@
 class RatesController < ApplicationController
   def show
-    @rate = Rate.last
+    @rate = Rate.actual
   end
 end
