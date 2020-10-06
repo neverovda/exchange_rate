@@ -7,5 +7,5 @@
           li = message
   = f.number_field :price 
   /, value: @rate.price ? '%.2f' % @item.price : nil, min: 0, step: 0.01
-  = f.datetime_select :to
+  = f.datetime_select :expiration_at
   .actions = f.submit
