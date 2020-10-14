@@ -1,4 +1,6 @@
 class Rate < ApplicationRecord
+  validates :price, presence: true
+
   default_scope { order('created_at') }
 
   after_create :publish, :check_rate
