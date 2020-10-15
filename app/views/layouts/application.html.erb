@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExchangeRate</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +12,7 @@
   </head>
 
   <body>
+    <%= render 'layouts/shared/nav' %>
     <%= yield %>
   </body>
 </html>
