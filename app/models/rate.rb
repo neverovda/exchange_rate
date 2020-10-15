@@ -1,5 +1,7 @@
 class Rate < ApplicationRecord
   validates :price, presence: true
+  validates_numericality_of :price, greater_than: 0
+  validate :expiration_at_cant_be_earlier_than_now, on: :create
 
   default_scope { order('created_at') }
 
@@ -37,5 +39,11 @@ class Rate < ApplicationRecord
 
   def check_rate
     RateCheckJob.set(wait_until: expiration_at).perform_later if forced
+  end
+
+  def expiration_at_cant_be_earlier_than_now
+    return if expiration_at.blank? || expiration_at > Time.now
+
+    errors.add(:expiration_at, "can't be earlier than now")
   end
 end
