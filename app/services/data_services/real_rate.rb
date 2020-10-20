@@ -9,7 +9,6 @@ class DataServices::RealRate
       raise RateSiteError unless response.code == '200'
 
       begin
-        puts Hash.from_xml(response.body)
         price = Hash.from_xml(response.body)['ValCurs']['Valute']
                     .find { |valute| valute['CharCode'] == CHAR_CODE }['Value']
                     .tr(',', '.').to_f
