@@ -17,7 +17,7 @@ RSpec.describe RatesController, type: :controller do
       expect(assigns(:rate)).to eq(forced_rate)
     end
 
-    it 'renders the index template' do
+    it 'renders the show template' do
       get :show
       expect(response).to render_template('show')
     end

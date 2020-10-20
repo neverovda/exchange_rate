@@ -11,5 +11,10 @@ FactoryBot.define do
       forced { true }
       expiration_at { Time.now - 1.hour }
     end
+
+    trait :forced_invalid do
+      price { nil }
+      expiration_at { Time.now - 1.hour }
+    end
   end
 end

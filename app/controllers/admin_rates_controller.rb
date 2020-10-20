@@ -22,6 +22,8 @@ class AdminRatesController < ApplicationController
 
   def last_params
     rate = Rate.forced_last
+    return unless rate
+
     { price: rate.price, expiration_at: rate.expiration_at }
   end
 end
