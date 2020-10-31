@@ -5,7 +5,7 @@
       ul
         - @rate.errors.full_messages.each do |message|
           li = message
-  = f.number_field :price 
+  = f.number_field :price, min: 0, step: 0.01 
   /, value: @rate.price ? '%.2f' % @item.price : nil, min: 0, step: 0.01
-  = f.datetime_select :expiration_at
+  = f.datetime_select :expiration_at, :include_seconds => true
   .actions = f.submit

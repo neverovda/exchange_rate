@@ -1,13 +1,5 @@
 h1 Rate
 
-p 
-  | Date:
-  = @rate.created_at
-
-p 
-  | Price:
-  = @rate.price
-  | rubal for 1 dollar
-
-  .rate
-    p#target NumberForApdate      
+.rate
+  p#target
+    = @rate.price
