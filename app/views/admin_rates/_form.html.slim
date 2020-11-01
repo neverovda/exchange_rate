@@ -1,11 +1,23 @@
 = form_with(model: @rate, url: admin_rates_path, local: true) do |f|
+  #notice = notice
   - if @rate.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@rate.errors.count, "error")} prohibited this rate from being saved:"
       ul
         - @rate.errors.full_messages.each do |message|
           li = message
-  = f.number_field :price, min: 0, step: 0.01 
-  /, value: @rate.price ? '%.2f' % @item.price : nil, min: 0, step: 0.01
-  = f.datetime_select :expiration_at, :include_seconds => true
-  .actions = f.submit
+  .form-row.text-secondary
+    | Rate:
+  .form-row  
+    = f.number_field :price, min: 0, step: 0.0001, class: 'form-control'
+  .form-row.text-secondary
+    | Date:
+  .form-row
+    .d-flex.flex-row
+      = f.date_select :expiration_at,{}, { class: 'form-control ml-1' }
+  .form-row.text-secondary
+    | Time:
+  .form-row  
+    .d-flex.flex-row
+      = f.time_select :expiration_at, { :include_seconds => true, :ignore_date => true, :time_separator => '' } , { class: 'form-control ml-1' } 
+  .text-center.py-4.mt-3
+    = f.submit class: 'btn btn-primary'
