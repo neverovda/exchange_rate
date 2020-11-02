@@ -33,7 +33,8 @@ class Rate < ApplicationRecord
 
   private
 
-  def publish
+  def publish # real rate and forced
+    Rails.cache.write('actual_rate_price', price)
     ActionCable.server.broadcast 'rates', price
   end
 
