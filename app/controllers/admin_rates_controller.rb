@@ -7,7 +7,7 @@ class AdminRatesController < ApplicationController
     @rate = Rate.new(rate_params)
 
     if @rate.save
-      redirect_to({ action: 'new' }, notice: "Rate #{@rate.price} was successfully created.")
+      redirect_to({ action: 'new' }, notice: "Rate #{@rate.value} was successfully created.")
     else
       render :new
     end
@@ -16,13 +16,13 @@ class AdminRatesController < ApplicationController
   private
 
   def rate_params
-    params.require(:rate).permit(:price, :expiration_at).merge(forced: true)
+    params.require(:rate).permit(:value, :expiration_at).merge(forced: true)
   end
 
   def last_params
     rate = Rate.forced_last
     return unless rate
 
-    { price: rate.price, expiration_at: rate.expiration_at }
+    { value: rate.value, expiration_at: rate.expiration_at }
   end
 end

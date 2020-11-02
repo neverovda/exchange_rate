@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :rate do
-    price { 100 }
+    value { 100 }
 
     trait :forced do
       forced { true }
@@ -13,7 +13,7 @@ FactoryBot.define do
     end
 
     trait :forced_invalid do
-      price { nil }
+      value { nil }
       expiration_at { Time.now - 1.hour }
     end
   end

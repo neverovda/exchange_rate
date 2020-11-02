@@ -25,7 +25,7 @@ feature 'Admin can create forced rate' do
     end
 
     Capybara.using_session('admin') do
-      fill_in 'rate_price', with: '77.77'
+      fill_in 'rate_value', with: '77.77'
       select_date_and_time(Time.now + 60.second, from: 'rate_expiration_at')
       click_on 'Create Rate'
       sleep 1
@@ -34,7 +34,7 @@ feature 'Admin can create forced rate' do
 
     Capybara.using_session('user') do
       expect(page).to have_content '77.77'
-      expect(page).not_to have_content rate.price
+      expect(page).not_to have_content rate.value
     end
   end
 
@@ -50,7 +50,7 @@ feature 'Admin can create forced rate' do
     end
 
     Capybara.using_session('admin') do
-      fill_in 'rate_price', with: '77.77'
+      fill_in 'rate_value', with: '77.77'
       select_date_and_time(Time.now + 60.second, from: 'rate_expiration_at')
       sleep 1
       click_on 'Create Rate'
@@ -58,7 +58,7 @@ feature 'Admin can create forced rate' do
 
     Capybara.using_session('user') do
       expect(page).not_to have_content '77.77'
-      expect(page).to have_content rate.price
+      expect(page).to have_content rate.value
     end
   end
 end

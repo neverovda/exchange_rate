@@ -1,7 +1,7 @@
 class RatesController < ApplicationController
   def show
-    @price = Rails.cache.fetch('actual_rate_price') do
-      Rate.actual&.price
+    @value = Rails.cache.fetch('actual_rate_value') do
+      Rate.actual&.value
     end
   end
 end

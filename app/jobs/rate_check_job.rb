@@ -7,7 +7,7 @@ class RateCheckJob < ApplicationJob
     current_rate = Rate.real_last
     # return unless current_rate
 
-    Rails.cache.write('actual_rate_price', current_rate.price)
-    ActionCable.server.broadcast 'rates', current_rate.price
+    Rails.cache.write('actual_rate_value', current_rate.value)
+    ActionCable.server.broadcast 'rates', current_rate.value
   end
 end

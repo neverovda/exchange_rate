@@ -1,6 +1,6 @@
 class Rate < ApplicationRecord
-  validates :price, presence: true
-  validates_numericality_of :price, greater_than: 0
+  validates :value, presence: true
+  validates_numericality_of :value, greater_than: 0
   validate :expiration_at_cant_be_earlier_than_now, on: :create
 
   default_scope { order('created_at') }
@@ -34,8 +34,8 @@ class Rate < ApplicationRecord
   private
 
   def publish # real rate and forced
-    Rails.cache.write('actual_rate_price', price)
-    ActionCable.server.broadcast 'rates', price
+    Rails.cache.write('actual_rate_value', value)
+    ActionCable.server.broadcast 'rates', value
   end
 
   def check_rate

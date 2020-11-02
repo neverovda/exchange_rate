@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2020_09_29_110621) do
   create_table "rates", force: :cascade do |t|
     t.boolean "forced", default: false
     t.datetime "expiration_at"
-    t.decimal "price"
+    t.decimal "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
