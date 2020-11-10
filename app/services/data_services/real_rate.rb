@@ -16,6 +16,7 @@ class DataServices::RealRate
         raise RateSiteError
       end
       Rate.create value: value
+      DataServices::RatePublish.call value unless Rate.forced?
     end
 
     private

@@ -51,9 +51,9 @@ feature 'Admin can create forced rate' do
 
     Capybara.using_session('admin') do
       fill_in 'rate_value', with: '77.77'
-      select_date_and_time(Time.now + 60.second, from: 'rate_expiration_at')
-      sleep 1
+      select_date_and_time(Time.now + 4.second, from: 'rate_expiration_at')
       click_on 'Create Rate'
+      sleep 5
     end
 
     Capybara.using_session('user') do

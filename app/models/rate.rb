@@ -5,15 +5,9 @@ class Rate < ApplicationRecord
 
   default_scope { order('created_at') }
 
-  after_create :publish, :check_rate
-
   class << self
     def forced?
       !actual_forced_last.nil?
-    end
-
-    def real_last
-      where({ forced: false }).last
     end
 
     def forced_last
@@ -26,6 +20,10 @@ class Rate < ApplicationRecord
 
     private
 
+    def real_last
+      where({ forced: false }).last
+    end
+
     def actual_forced_last
       where({ forced: true }).where('expiration_at > ?', Time.now).last
     end
@@ -33,15 +31,7 @@ class Rate < ApplicationRecord
 
   private
 
-  def publish # real rate and forced
-    Rails.cache.write('actual_rate_value', value)
-    ActionCable.server.broadcast 'rates', value
-  end
-
-  def check_rate
-    RateCheckJob.set(wait_until: expiration_at).perform_later if forced
-  end
-
+  # validate
   def expiration_at_cant_be_earlier_than_now
     return if expiration_at.blank? || expiration_at > Time.now
 

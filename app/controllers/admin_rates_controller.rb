@@ -4,9 +4,9 @@ class AdminRatesController < ApplicationController
   end
 
   def create
-    @rate = Rate.new(rate_params)
+    @rate = DataServices::ForcedRate.create(rate_params)
 
-    if @rate.save
+    if @rate.errors.blank?
       redirect_to({ action: 'new' }, notice: "Rate #{@rate.value} was successfully created.")
     else
       render :new
@@ -16,7 +16,7 @@ class AdminRatesController < ApplicationController
   private
 
   def rate_params
-    params.require(:rate).permit(:value, :expiration_at).merge(forced: true)
+    params.require(:rate).permit(:value, :expiration_at)
   end
 
   def last_params
