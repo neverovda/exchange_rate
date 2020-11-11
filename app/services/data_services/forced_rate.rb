@@ -23,8 +23,8 @@ class DataServices::ForcedRate
   private
 
   def delete_deforce_jobs
-    queue = Sidekiq::Queue.new
-    queue.each { |job| job.delete if job.klass == DeforceJob }
+    queue = Sidekiq::ScheduledSet.new
+    queue.each { |job| job.delete if job.args[0]['job_class'] == 'DeforceJob' }
   end
 
   def create_deforcing_job
